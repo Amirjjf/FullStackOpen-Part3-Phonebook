@@ -70,7 +70,7 @@ app.delete("/api/persons/:id", (req, res) => {
 });
 
 const generateId = () => {
-  return Math.floor(Math.random() * 10000);
+  return Math.floor(Math.random() * 100000);
 };
 
 app.post("/api/persons", (req, res) => {
