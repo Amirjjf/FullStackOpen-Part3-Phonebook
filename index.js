@@ -1,13 +1,11 @@
 const express = require("express");
 const morgan = require("morgan"); // Import Morgan
 
-
-
 const app = express();
 
 app.use(express.json());
 
-app.use(express.static('dist'))
+app.use(express.static("dist"));
 
 morgan.token("body", (req) => {
   return JSON.stringify(req.body);
@@ -41,8 +39,8 @@ let persons = [
   {
     id: 5,
     name: "Amir Jafarian",
-    number: "817281319"
-  }
+    number: "817281319",
+  },
 ];
 
 app.get("/", (req, res) => {
@@ -106,7 +104,7 @@ app.post("/api/persons", (req, res) => {
   res.json(person);
 });
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
