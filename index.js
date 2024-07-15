@@ -7,6 +7,8 @@ const app = express();
 
 app.use(express.json());
 
+app.use(express.static('dist'))
+
 morgan.token("body", (req) => {
   return JSON.stringify(req.body);
 });
@@ -36,6 +38,11 @@ let persons = [
     name: "Mary Poppendieck",
     number: "39-23-6423122",
   },
+  {
+    id: 5,
+    name: "Amir Jafarian",
+    number: "817281319"
+  }
 ];
 
 app.get("/", (req, res) => {
