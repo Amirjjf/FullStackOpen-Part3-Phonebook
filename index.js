@@ -29,11 +29,13 @@ app.get("/api/persons", (req, res) => {
   });
 });
 
-// app.get("/info", (req, res) => {
-//   const length = persons.length;
-//   const reqTime = new Date().toString();
-//   res.send(`Phonebook has info for ${length} people<br>${reqTime}`);
-// });
+app.get("/info", (req, res) => {
+  Person.find({}).then((people) => {
+    res.send(
+      `<p>Phonebook has info for ${people.length} people</p><p>${new Date()}</p>`
+    );
+  });
+});
 
 app.get("/api/persons/:id", (req, res) => {
   const id = req.params.id;
@@ -46,15 +48,23 @@ app.get("/api/persons/:id", (req, res) => {
   });
 });
 
-// app.delete("/api/persons/:id", (req, res) => {
-//   const id = Number(req.params.id);
-//   persons = persons.filter((person) => person.id !== id);
-//   res.status(204).end();
-// });
+app.delete("/api/persons/:id", (req, res) => {
+  const id = req.params.id;
+  Person.findByIdAndDelete(id)
+    .then((result) => {
+      if (result) {
+        res.status(204).end();
+      } else {
+        res.status(404).send({ error: "person not found" });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(400).send({ error: "malformatted id" });
+    });
+});
 
-// const generateId = () => {
-//   return Math.floor(Math.random() * 100000);
-// };
+
 
 app.post("/api/persons", (req, res) => {
   const body = req.body;
